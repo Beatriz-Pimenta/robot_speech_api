@@ -104,6 +104,7 @@ ros2 launch robot_speech_api demo_speech.launch.py mode:=demo
 The robot will speak two preset sentences — one non-blocking (`say`) and one blocking (`say_and_wait`).
 - This will automatically start the TTS Action Server (from `tts_ros`'s `tts_bringup`) and the Demo node, and make the robot speak a short predefined test sequence.
 
+---------------------------------
 
 ``` bash
 # For the demo in interactive mode:
@@ -123,7 +124,7 @@ and start the demo node in a different terminal:
 ``` bash
 ros2 run robot_speech_api demo --ros-args -p mode:=interactive
 ```
-
+---------------------------------
 
 ``` bash
 # Launch speech_with_server
