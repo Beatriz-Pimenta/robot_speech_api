@@ -1,15 +1,14 @@
 # Launch file to start BOTH:
-  # - The TTS Action Server
-  # - The Demo Speech Node
-# This is useful for testing everything together in a single command.
-
+#   - The TTS Action Server (from tts_bringup)
+#   - The Demo Speech Node (from robot_speech_api)
+#
 # Supports parameter "mode":
-    # - demo        : runs a predefined speech demo
-    # - interactive : lets you type text in the terminal (if stdin is attached)
-
+#   - demo        : runs a predefined speech demo
+#   - interactive : lets you type text in the terminal (if stdin is attached)
+#
 # Usage examples:
-    # ros2 launch robot_speech_api demo_speech.launch.py mode:=demo
-    # ros2 launch robot_speech_api demo_speech.launch.py mode:=interactive
+#   ros2 launch robot_speech_api demo_speech.launch.py mode:=demo
+#   ros2 launch robot_speech_api demo_speech.launch.py mode:=interactive
 
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
@@ -20,10 +19,9 @@ from ament_index_python.packages import get_package_share_directory
 import os
 
 
-
 def generate_launch_description():
 
-    # Path to your existing TTS bringup launch file
+    # Locate the TTS bringup launch file
     tts_launch_path = os.path.join(
         get_package_share_directory('tts_bringup'),
         'launch',
@@ -37,22 +35,25 @@ def generate_launch_description():
         description='Mode for the demo node: "demo" or "interactive".'
     )
 
-    # Include the official TTS bringup launch
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(tts_launch_path)
+    # Include the TTS bringup launch (starts the TTS action server)
+    tts_bringup = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(tts_launch_path)
+    )
 
-    # Demo speech mode
+    # Start the demo speech node
     demo_node = Node(
         package='robot_speech_api',
-        executable='demo',  # Entry point of your demo node
+        executable='demo',
         name='demo_speech',
         output='screen',
         parameters=[{'mode': LaunchConfiguration('mode')}]
     )
 
+    # ------------------------------------------------------
+    # Return the composed LaunchDescription
+    # ------------------------------------------------------
     return LaunchDescription([
         declare_mode_arg,
         tts_bringup,
         demo_node
     ])
-
