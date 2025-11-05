@@ -28,7 +28,7 @@ This package aims to create an API for the Text-to-Speech, using ROS 2 and the t
 
 - The most important parts of the package are the following:
 
-robot_speech_api/
+- robot_speech_api/
     - launch/
         - demo_speech.launch.py # Launches the TTS server and the demo node
         - speech_with_server.launch.py # Optional alternative launcher
