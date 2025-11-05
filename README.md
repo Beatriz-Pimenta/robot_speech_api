@@ -98,7 +98,7 @@ The `robot_speech_api` package can be launched in **three main ways**, depending
 
 ``` bash
 # Launch the demo (automatic mode):
-ros2 launch robot_speech_api demo_speech.launch.py
+ros2 launch robot_speech_api demo_speech.launch.py mode:=demo
 ```
 - Runs a predefined demonstration sequence using the Speech API.  
 The robot will speak two preset sentences — one non-blocking (`say`) and one blocking (`say_and_wait`).
@@ -115,7 +115,14 @@ ros2 launch robot_speech_api demo_speech.launch.py mode:=interactive
 Enter a message:
 ```
 Just type anything and press Enter. You can `type` exit to quit this mode.
-- Attention: This mode requires that the TTS server (tts_bringup) is already running in another terminal.
+- Attention: input might not work directly in the same terminal. If that is the case, you should run the TTS server in a terminal:
+``` bash
+ros2 launch tts_bringup tts.launch.py
+```
+and start the demo node in a different terminal:
+``` bash
+ros2 run robot_speech_api demo --ros-args -p mode:=interactive
+```
 
 
 ``` bash
