@@ -27,8 +27,8 @@ setup(
     },
     entry_points={
         'console_scripts': [
-             'demo = robot_speech_api.demo:main',
-             'speech = robot_speech_api.speech_api:main',
+             'demo_tts = robot_speech_api.demo_tts:main',
+             'tts_speech = robot_speech_api.tts_api:main',
         ],
     },
 )

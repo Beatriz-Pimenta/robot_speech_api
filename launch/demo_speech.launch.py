@@ -43,8 +43,8 @@ def generate_launch_description():
     # Start the demo speech node
     demo_node = Node(
         package='robot_speech_api',
-        executable='demo',
-        name='demo_speech',
+        executable='demo_tts',
+        name='demo_tts_node',
         output='screen',
         parameters=[{'mode': LaunchConfiguration('mode')}]
     )

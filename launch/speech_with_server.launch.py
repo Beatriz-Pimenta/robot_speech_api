@@ -30,8 +30,8 @@ def generate_launch_description():
         # Start the API
         Node(
             package='robot_speech_api',        # Package with the Speech API
-            executable='speech_api',          # Entry point of the speech node
-            name='speech',                # Node name in ROS graph
+            executable='tts_speech',          # Entry point of the speech node
+            name='tts_speech_node',                # Node name in ROS graph
             output='screen'                    # Show logs in the console
         )
     ])

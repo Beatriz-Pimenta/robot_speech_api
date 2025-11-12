@@ -1,4 +1,4 @@
-# Example node showing how to use the SpeechAPI.
+# Example node showing how to use the TTS_API.
 # Supports two modes:
     #  1. Interactive mode -> asks user for input text in the terminal.
     #  2. Demo mode -> runs predefined examples.
@@ -6,7 +6,7 @@
 
 import rclpy
 from rclpy.node import Node
-from robot_speech_api.tts_api import SpeechAPI
+from robot_speech_api.tts_api import TTS_API
 
 
 class DemoNode(Node):
@@ -14,8 +14,8 @@ class DemoNode(Node):
     def __init__(self):
         super().__init__('demo_speech')
 
-        # Create the Speech API
-        self.api = SpeechAPI(self)
+        # Create the TTS API
+        self.api = TTS_API(self)
 
         # Declare a parameter to choose mode
         # - interactive: ask user for text
