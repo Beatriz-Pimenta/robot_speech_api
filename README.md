@@ -35,8 +35,8 @@ robot_speech_api/
         speech_with_server.launch.py # Optional alternative launcher
     robot_speech_api/
         init.py
-        demo.py # Demo node implementation
-        speech_api.py # Speech API implementation (Action client)
+        demo_tts.py # Demo node implementation for the TTS
+        tts_api.py # TTS API implementation (Action client)
     package.xml
     setup.py
     README.md
@@ -122,7 +122,7 @@ ros2 launch tts_bringup tts.launch.py
 ```
 and start the demo node in a different terminal:
 ``` bash
-ros2 run robot_speech_api demo --ros-args -p mode:=interactive
+ros2 run robot_speech_api demo_tts --ros-args -p mode:=interactive
 ```
 ---------------------------------
 
