@@ -11,6 +11,7 @@ This package aims to create an API for the Text-to-Speech, using ROS 2 and the t
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Running](#running)
+- [YAML File](#yaml-file)
 
 ---
 
@@ -34,7 +35,7 @@ robot_speech_api/
         demo_speech.launch.py # Launches the TTS server and the demo node
         speech_with_server.launch.py # Optional alternative launcher
     robot_speech_api/
-        init.py
+        __init__.py
         demo_tts.py # Demo node implementation for the TTS
         tts_api.py # TTS API implementation (Action client)
     package.xml
@@ -83,7 +84,7 @@ cd ~/ros2_ws
 rosdep install --from-paths src --ignore-src -r -y
 
 # Build the package (run from your ROS 2 workspace root)
-colcon build --packages-select tts_package
+colcon build --packages-select robot_speech_api
 
 # Source the workspace
 source install/setup.bash
@@ -100,7 +101,7 @@ The `robot_speech_api` package can be launched in **three main ways**, depending
 # Launch the demo (automatic mode):
 ros2 launch robot_speech_api demo_speech.launch.py mode:=demo
 ```
-- Runs a predefined demonstration sequence using the Speech API.  
+- Runs a predefined demonstration sequence using the TTS API.  
 The robot will speak two preset sentences — one non-blocking (`say`) and one blocking (`say_and_wait`).
 - This will automatically start the TTS Action Server (from `tts_ros`'s `tts_bringup`) and the Demo node, and make the robot speak a short predefined test sequence.
 
@@ -116,14 +117,7 @@ ros2 launch robot_speech_api demo_speech.launch.py mode:=interactive
 Enter a message:
 ```
 Just type anything and press Enter. You can `type` exit to quit this mode.
-- Attention: input might not work directly in the same terminal. If that is the case, you should run the TTS server in a terminal:
-``` bash
-ros2 launch tts_bringup tts.launch.py
-```
-and start the demo node in a different terminal:
-``` bash
-ros2 run robot_speech_api demo_tts --ros-args -p mode:=interactive
-```
+
 ---------------------------------
 
 ``` bash
@@ -131,6 +125,15 @@ ros2 run robot_speech_api demo_tts --ros-args -p mode:=interactive
 ros2 launch robot_speech_api speech_with_server.launch.py
 ```
 - The speech_with_server launch file is meant for full integration testing.
-- It launches both the TTS Action Server (from `tts_bringup`) and the Speech API Node (not the demo).
-- This should be ideal for running your own nodes or APIs that use the TTS service in a real robot setup.
-- After launching, you can send speech commands or actions from other ROS 2 nodes.
+- Launches both the TTS Action Server and the Speech API Node (`tts_api`).
+- Ideal for integration with other ROS 2 nodes on your robot.
+- Use this when you want to send speech requests programmatically instead of using the demo.
+
+-----------------------------------
+
+## YAML File
+
+- Attention:
+  - Both launch files (`demo_speech.launch.py` and `speech_with_server.launch.py`) use the same configuration file:
+  `config/tts_params.yaml`.
+  - You can copy or create another YAML for different robots and point to it in the launch file if needed.
