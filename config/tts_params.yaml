@@ -1,3 +1,6 @@
-tts_action_topic: "say"
-mode: "demo"
-timeout_sec: 5.0
+demo_tts_node:       # <-- the node name must match what you give in the launch file
+  ros__parameters:
+    tts_topic: say
+    language: en
+    volume: 1.0
+    rate: 1.0

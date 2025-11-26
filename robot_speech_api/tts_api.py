@@ -12,11 +12,11 @@ class TTS_API:
         # The API requires a ROS 2 Node to run inside
         self._node = node
 
-         # Read topic from parameter
-        self._tts_topic = node.get_parameter_or(
-            'tts_action_topic',
-            node.declare_parameter('tts_action_topic', 'say')
-        ).value
+        # Read topic from parameter, with default 'say'
+        if self._node.has_parameter('tts_action_topic'):
+            self._tts_topic = self._node.get_parameter('tts_action_topic').get_parameter_value().string_value
+        else:
+            self._tts_topic = 'say'
 
         # Create an Action Client that connects to the 'tts' Action Server
         self._client = ActionClient(node, TTS, self._tts_topic)
