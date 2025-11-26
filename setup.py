@@ -7,12 +7,11 @@ setup(
     version='0.0.0',
     packages=find_packages(exclude=['test']),
     data_files=[
-        ('share/ament_index/resource_index/packages',
-            ['resource/' + package_name]),
+        ('share/ament_index/resource_index/packages', ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
         # Install all launch files
-        ('share/' + package_name + '/launch',
-            ['launch/demo_speech.launch.py', 'launch/speech_with_server.launch.py']),
+        ('share/' + package_name + '/launch', ['launch/demo_speech.launch.py', 'launch/speech_with_server.launch.py']),
+        ('share/robot_speech_api/config', ['config/tts_params.yaml']),
     ],
     install_requires=['setuptools'],
     zip_safe=True,

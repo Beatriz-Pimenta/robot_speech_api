@@ -16,6 +16,8 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 from launch.substitutions import LaunchConfiguration
 from ament_index_python.packages import get_package_share_directory
+from launch.substitutions import PathJoinSubstitution
+from launch_ros.substitutions import FindPackageShare
 import os
 
 
@@ -40,13 +42,23 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(tts_launch_path)
     )
 
+    # Path to config file
+    config_yaml = PathJoinSubstitution([
+        FindPackageShare('robot_speech_api'),
+        'config',
+        'tts_params.yaml'
+    ])
+
     # Start the demo speech node
     demo_node = Node(
         package='robot_speech_api',
         executable='demo_tts',
         name='demo_tts_node',
         output='screen',
-        parameters=[{'mode': LaunchConfiguration('mode')}]
+        parameters=[
+            config_yaml,
+            {'mode': LaunchConfiguration('mode')}
+        ]
     )
 
     # ------------------------------------------------------

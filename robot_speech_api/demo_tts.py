@@ -13,19 +13,20 @@ class DemoNode(Node):
 
     def __init__(self):
         super().__init__('demo_speech')
-
-        # Create the TTS API
-        self.api = TTS_API(self)
-
         # Declare a parameter to choose mode
         # - interactive: ask user for text
         # - demo: run predefined examples
-        self.declare_parameter("mode", "demo")
 
+        self.declare_parameter('mode', 'demo')
+        self.declare_parameter('tts_action_topic', 'say')
+
+        # Create the TTS API
+        self.api = TTS_API(self)
+        
         # Read the parameter value
-        mode = self.get_parameter("mode").get_parameter_value().string_value
+        mode = self.get_parameter('mode').value
 
-        if mode == "interactive":
+        if mode == 'interactive':
             self.run_interactive()
         else:
             self.run_demo()

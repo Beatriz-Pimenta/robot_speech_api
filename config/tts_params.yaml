@@ -1,0 +1,3 @@
+tts_action_topic: "say"
+mode: "demo"
+timeout_sec: 5.0
